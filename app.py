@@ -29,7 +29,7 @@ line_handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 from bs4 import BeautifulSoup
 import requests #導入雙套件
 import time #導入雙套件
-
+url = 'https://tw.stock.yahoo.com/quote/2330.TW' #變數設網址
 
 
 
@@ -66,8 +66,6 @@ def message_text(event):
             ReplyMessageRequest(
                 reply_token=event.reply_token,
                 messages=[TextMessage(text ='
-url = 'https://tw.stock.yahoo.com/quote/2330.TW' #變數設網址
-
 while True:
     resp = requests.get( url )    #設定變數 是取得url內容
     soup = BeautifulSoup(resp.text,'html.parser')
