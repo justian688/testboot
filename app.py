@@ -25,7 +25,23 @@ app = Flask(__name__)
 
 configuration = Configuration(access_token=os.getenv('CHANNEL_ACCESS_TOKEN'))
 line_handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
+##
+from bs4 import BeautifulSoup
+import requests #導入雙套件
 
+url = 'http://icwanglearn.blogspot.com' #變數設網址
+resp = requests.get(url)    #設定變數 是取得url內容
+soup = BeauyifulSoup(resp,'htmp.parser')
+ul = soup.find=('htmp.parser','D(f)' Fld(c) Flw(w) H(192px) Mx(-16px'))
+lilist = ul.find_all('li')
+      print(len(lilist))
+
+
+
+with open('icwang.html','w',encoding='utf-8') as fobj: #和打開檔案 寫入 編碼 給予暱稱
+    fobj.write(resp.text) #抓回來之後寫入
+    
+##
 
 @app.route("/callback", methods=['POST'])
 def callback():
