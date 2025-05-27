@@ -28,20 +28,12 @@ line_handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 ##
 from bs4 import BeautifulSoup
 import requests #導入雙套件
-
-while True:
-url = 'http://icwanglearn.blogspot.com' #變數設網址
-resp = requests.get(url)    #設定變數 是取得url內容
-soup = BeauyifulSoup(resp,'htmp.parser')
-ul = soup.find=('htmp.parser','D(f)' Fld(c) Flw(w) H(192px) Mx(-16px'))
-lilist = ul.find_all('li')
-      print(len(lilist))
+import time #導入雙套件
 
 
 
-with open('icwang.html','w',encoding='utf-8') as fobj: #和打開檔案 寫入 編碼 給予暱稱
-    fobj.write(resp.text) #抓回來之後寫入
-    
+
+
 ##
 
 @app.route("/callback", methods=['POST'])
@@ -73,7 +65,23 @@ def message_text(event):
         line_bot_api.reply_message(                         #訊息串接api
             ReplyMessageRequest(
                 reply_token=event.reply_token,
-                messages=[TextMessage(text ='reply message0')]
+                messages=[TextMessage(text ='
+url = 'https://tw.stock.yahoo.com/quote/2330.TW' #變數設網址
+
+while True:
+    resp = requests.get( url )    #設定變數 是取得url內容
+    soup = BeautifulSoup(resp.text,'html.parser')
+    ul = soup.find('ul','D(f) Fld(c) Flw(w) H(192px) Mx(-16px)')
+    lilist = ul.find_all('li')
+    成交 = float ( lilist[0].find_all('span')[1].text.replace(',', ''))
+    昨收 = float ( lilist[6].find_all('span')[1].text.replace(',', ''))
+    漲跌幅 = (成交-昨收)/昨收
+    print( f'{漲跌幅:.4f}',time.strftime('%H:%M:%S',time.localtime()) )
+
+    if 漲跌幅 > 0.03:
+        print('漲跌幅超過3建議買進')
+    elif 漲跌幅 < -0.03:
+        print('漲跌幅超過3建議賣出')')]
             )
         )
 
