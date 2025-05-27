@@ -29,6 +29,7 @@ line_handler = WebhookHandler(os.getenv('CHANNEL_SECRET'))
 from bs4 import BeautifulSoup
 import requests #導入雙套件
 
+while True:
 url = 'http://icwanglearn.blogspot.com' #變數設網址
 resp = requests.get(url)    #設定變數 是取得url內容
 soup = BeauyifulSoup(resp,'htmp.parser')
